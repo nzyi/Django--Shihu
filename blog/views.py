@@ -293,7 +293,7 @@ def answer_detail(request, id):
 def on_like(request, id):
     user = User.objects.get(username=request.session.get('user_name'))
     post = Post.objects.get(id=id)
-    like = Liked.objects.filter(post=post, user=user)
+    like = Liked.objects.filter(Q(post=post)|Q(user=user))
     if like:
         return HttpResponse("您已经点过赞了！")
     post = get_object_or_404(Post, id=id)
