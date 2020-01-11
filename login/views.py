@@ -22,7 +22,9 @@ def user_login(request):
                     request.session['is_login'] = True
                     request.session['user_id'] = user.id
                     request.session['user_name'] = user.username
-                    if request.session.get('login_from', None) == '/':
+                    if not request.session.get('login_from'):
+                        return redirect('/blog')
+                    elif request.session.get('login_from', None) == '/':
                         return redirect('/blog')
                     else:
                         return HttpResponseRedirect(request.session.get('login_from'))
@@ -73,6 +75,7 @@ def register(request):
                 new_user.save()
                 message = "注册成功"
                 login_form = UserForm()
+                request.session['login_from'] = '/'
                 return render(request, 'login/login.html', locals())  # 自动跳转到登录页面
         message = '验证码错误!'
         return render(request, 'login/register.html', locals())

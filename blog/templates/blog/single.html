@@ -19,7 +19,7 @@
                             <span class="post_like">{{ post.likecount }} 赞</span>
                             <span class="like"><a href="{% url 'blog:like' post.id %}">点赞</a></span><br>
                             <tr>谁点过赞:</tr><br>
-                            {% for  like in like_list %}
+                            {% for like in like_list %}
                             <tr><a href="#">{{ like.user }}</a></tr><br>
                             {% endfor %}
                             {% if delete_allowance == 'allowed' %}
